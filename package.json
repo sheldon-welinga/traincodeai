@@ -2,21 +2,43 @@
   "name": "traincodeai",
   "version": "0.1.0",
   "private": true,
+  "description": "An AI that trains on code files and generates new code features based on trained code ",
+  "engines": {
+    "node": "~16.15.1"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "rimraf .next dist && cross-env yarn build:next",
+    "build:next": "cross-env NODE_OPTIONS='--max_old_space_size=6656' next build",
+    "check:type": "tsc --project tsconfig.json",
+    "dev": "rimraf .next dist && cross-env next dev -p ${PORT:-3000}",
+    "lint": "next lint",
+    "lint:fix": "cross-env NODE_OPTIONS='--max_old_space_size=6656' eslint --report-unused-disable-directives --quiet --fix",
+    "start": "yarn build && cross-env NODE_PATH=dist next start -p ${PORT:-3000}"
   },
   "dependencies": {
     "@types/node": "18.15.10",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
+    "classnames": "^2.3.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-wrap-balancer": "^0.4.0",
+    "sass": "^1.60.0",
     "typescript": "5.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1",
+    "tailwindcss": "^3.2.7"
   }
 }
